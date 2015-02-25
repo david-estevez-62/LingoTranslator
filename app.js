@@ -9,6 +9,9 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', indexController.index);
+app.get('/translate', function(req, res){
+	res.render('translate')
+})
 
 var server = app.listen(8394, function() {
 	console.log('Express server listening on port ' + server.address().port);
