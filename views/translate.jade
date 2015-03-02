@@ -1,4 +1,14 @@
 extends layout 
 
 block content
-	h1 it works
+	form(id="translate", method="post", action="/get-translation")
+		label(for="fromlanguage") Input Language
+		select(name="fromLanguage")
+			for language in languages
+				option(value="#{language}") #{language}
+		label(for="targetlanguage") Target language
+		select(name="targetlanguage")
+			for language in languages
+				option(value="#{language}") #{language}
+		input(type="text", name="word", placeholder="Word to translate...")
+		input(type="submit")

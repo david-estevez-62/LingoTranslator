@@ -1,6 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var indexController = require('./controllers/index.js');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/lingo');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
 app.set('view engine', 'jade');
@@ -9,9 +15,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', indexController.index);
-app.get('/translate', function(req, res){
-	res.render('translate')
-})
+app.get('/translate', indexController.translate);
+app.post('/get-translation', indexController.getTranslation);
 
 var server = app.listen(8394, function() {
 	console.log('Express server listening on port ' + server.address().port);
